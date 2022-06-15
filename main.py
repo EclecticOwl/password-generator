@@ -21,6 +21,7 @@ def pass_gen():
     new_pass = []
 
     for i in range(int(num_chars)):
+        
         random_choice = random.randint(1, 4)
 
         if random_choice == 1:
@@ -31,8 +32,18 @@ def pass_gen():
             new_pass.append(random.choice(NUMBERS))
         else:
             new_pass.append(random.choice(SPECIAL_CHARS))
+    
+    new_pass = ''.join(new_pass)
 
-    print(new_pass)
+    print(f'Password generated using {num_chars}')
+    print(f'Password is: {new_pass}')
+
+    cp_confirm = input("Would you like to copy the password to clipboard?\n(Enter y for yes and n for no.\n\n>>> ")
+
+    if cp_confirm == 'y' or 'yes':
+        command = 'echo ' + new_pass + '| pbcopy'
+        os.system(command)
+        print('Passed successfully copied to clipboard.')
 
 
 pass_gen()
