@@ -1,5 +1,6 @@
 import os
 import random
+import pyperclip as pc
 
 # Data sources to pull from to create password
 
@@ -8,20 +9,26 @@ ABC_LOWER = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
 ABC_UPPER = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 
 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 NUMBERS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-SPECIAL_CHARS = ['!', '@', '#', '$', '%']
+SPECIAL_CHARS = ['!', '@', '#', '$', '%', '^', '&', '*']
 
 def pass_gen():
-
     num_chars = input("How many characters would you like the password to be?\n\n>>> ")
-    
-    if int(num_chars) < 0:
-        print("Invalid selection. Please enter a positive number.")
+
+    if not num_chars.isnumeric():
+        print('This is not a valid positive number. Please enter a positive whole number.')
         return
-    
+
+    num_chars = int(num_chars)
+
+    if num_chars < 2:
+        print('Please enter a number higher than one.')
+        return
+
+
     new_pass = []
 
     for i in range(int(num_chars)):
-        
+
         random_choice = random.randint(1, 4)
 
         if random_choice == 1:
@@ -35,15 +42,16 @@ def pass_gen():
     
     new_pass = ''.join(new_pass)
 
-    print(f'Password generated using {num_chars}')
+    print(f'Password generated with {num_chars} characters.')
     print(f'Password is: {new_pass}')
 
-    cp_confirm = input("Would you like to copy the password to clipboard?\n(Enter y for yes and n for no.\n\n>>> ")
+    cp_confirm = input("Would you like to copy the password to clipboard?\n(Enter y for yes and n for no.)\n\n>>> ")
 
-    if cp_confirm == 'y' or 'yes':
-        command = 'echo ' + new_pass + '| pbcopy'
-        os.system(command)
+    if cp_confirm == 'y':
+        pc.copy(new_pass)
         print('Passed successfully copied to clipboard.')
+    else:
+        pass
 
 
 pass_gen()
