@@ -1,4 +1,3 @@
-import os
 import random
 import pyperclip as pc
 
@@ -12,6 +11,7 @@ NUMBERS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 SPECIAL_CHARS = ['!', '@', '#', '$', '%', '^', '&', '*']
 
 def pass_gen():
+    
     num_chars = input("How many characters would you like the password to be?\n\n>>> ")
 
     if not num_chars.isnumeric():
@@ -23,7 +23,6 @@ def pass_gen():
     if num_chars < 2:
         print('Please enter a number higher than one.')
         return
-
 
     new_pass = []
 
@@ -50,8 +49,6 @@ def pass_gen():
     if cp_confirm == 'y':
         pc.copy(new_pass)
         print('Passed successfully copied to clipboard.')
-    else:
-        pass
 
 
 pass_gen()
